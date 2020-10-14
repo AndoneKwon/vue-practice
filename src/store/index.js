@@ -6,7 +6,7 @@ Vue.use(Vuex)
 
 const resourceHost = "http://localhost:3000"
 
-export default new Veux.Store({
+export default new Vuex.Store({
     state: {
         accessToken: null,
     },
