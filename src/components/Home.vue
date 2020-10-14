@@ -1,5 +1,3 @@
-// components/Home.vue
-
 <template>
   <div>
     <h2>Home</h2>
