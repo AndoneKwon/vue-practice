@@ -6,6 +6,12 @@ import Me from "../components/Me.vue"
 
 Vue.use(Router)
 
+const requireAuth = () => (from, to, next) => {
+    const isAuthenticated = false
+    if (isAuthenticated) return next()
+    next('/login?returnPath=me')
+}
+
 export default new Router({
     mode: "history",
     routes: [
@@ -25,5 +31,6 @@ export default new Router({
             component: Me,
             beforeEnter: requireAuth,
         },
+
     ],
 })
