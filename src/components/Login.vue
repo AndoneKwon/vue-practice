@@ -1,64 +1,48 @@
-<!--<template>-->
-<!--  <div>-->
-<!--    <h2>Login</h2>-->
-<!--    <form @submit.prevent="onSubmit(email, password)">-->
-<!--      <input type="text" v-model="email" placeholder="Email Address" />-->
-<!--      <input type="password" v-model="password" placeholder="Password" />-->
-<!--      <input type="submit" value="Login" />-->
-<!--    </form>-->
-<!--    <p><i>{{msg}}</i></p>-->
-<!--  </div>-->
-<!--</template>-->
-
-
-
 <template>
-<div id="app">
-<v-container>
-  <v-layout row class="text-xs-center">
-    <v-flex xs3 style="background-image: url('http://cdn.wallpapersafari.com/7/86/gqiGH7.jpg')">
-      <v-card height="500px"></v-card>
-    </v-flex>
-    <v-flex xs4 class="grey lighten-4">
-      <v-container style="position: relative;top: 13%;" class="text-xs-center">
-        <v-card flat>
-          <v-card-title primary-title>
-            <h4>Login</h4>
-          </v-card-title>
-          <v-form>
-            <v-text-field prepend-icon="person" name="Username" label="Username" v-model="email" placeholder="Email Address"></v-text-field>
-            <v-text-field prepend-icon="lock" name="Password" label="Password" type="password" v-model="password" placeholder="Password"></v-text-field>
-            <v-card-actions>
-              <v-btn primary large block type="submit" value="Login">Login</v-btn>
-            </v-card-actions>
-          </v-form>
+  <v-container fluid fill-height>
+    <v-layout align-center justify-center>
+      <v-flex xs12 sm8 md4>
+        <v-card class="elevation-12">
+          <v-toolbar dark color="primary">
+            <v-toolbar-title>Login form</v-toolbar-title>
+            <v-spacer></v-spacer>
+          </v-toolbar>
+          <v-card-text>
+            <v-form>
+              <v-text-field  v-model="form.email" label="email" type="text"></v-text-field>
+              <v-text-field  v-model="form.pwd" label="비밀번호" type="password"></v-text-field>
+            </v-form>
+          </v-card-text>
+          <v-card-actions>
+            <v-spacer></v-spacer>
+            <v-btn color="primary" @click="signIn">로그인</v-btn>
+          </v-card-actions>
         </v-card>
-      </v-container>
-    </v-flex>
-  </v-layout>
-</v-container>
-</div>
+      </v-flex>
+    </v-layout>
+  </v-container>
 </template>
-
 
 <script>
 
 export default {
-  data() {
+  data () {
     return {
-      email: "",
-      password: "",
-      msg: "",
+      form: {
+        email: '',
+        pwd: ''
+      }
     }
   },
   methods: {
-    onSubmit(email, password) {
+    signIn (email, pwd) {
       // LOGIN 액션 실행
       this.$store
-          .dispatch("LOGIN", { email, password })
+          .dispatch("LOGIN", { email, pwd })
           .then(() => this.redirect())
           .catch(({ message }) => (this.msg = message))
     },
+
     redirect() {
       const { search } = window.location
       const tokens = search.replace(/^\?/, "").split("&")
@@ -71,6 +55,7 @@ export default {
       // 리다이렉트 처리
       this.$router.push(returnPath)
     },
-  },
+
+  }
 }
 </script>
