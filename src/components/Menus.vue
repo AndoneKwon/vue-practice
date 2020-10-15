@@ -7,6 +7,8 @@
 
     <router-link to="/me">Me</router-link>
 
+    <router-link to="/register">Register</router-link>
+
 
 
 
