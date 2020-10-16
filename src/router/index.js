@@ -5,6 +5,7 @@ import Login from "../components/Login.vue"
 import Me from "../components/Me.vue"
 import Register from "../components/Register";
 import Contents from "@/components/Contents";
+import Chat from "../components/Chat";
 
 Vue.use(Router)
 
@@ -42,6 +43,11 @@ export default new Router({
             name: "Me",
             component: Me,
             beforeEnter: requireAuth,
+        },
+        {
+            path:"/chat",
+            name:"chat",
+            component: Chat,
         },
 
     ],
