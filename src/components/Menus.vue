@@ -9,6 +9,8 @@
 
     <router-link to="/register">Register</router-link>
 
+    <router-link to="/contents">Contents</router-link>
+
 
 
 
