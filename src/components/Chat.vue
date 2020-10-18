@@ -6,6 +6,12 @@
       offset-sm="3"
     >
       <v-card>
+        <v-virtual-scroll
+        :bench="benched"
+        :items="items"
+        height="500"
+        item-height="64"
+      >
         <v-list two-line>
           <template v-for="(item, index) in items.slice(0, 6)">
             <v-subheader
@@ -30,6 +36,7 @@
             </v-list-item>
           </template>
         </v-list>
+        </v-virtual-scroll>
       </v-card>
       <form>
         <v-text-field
