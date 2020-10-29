@@ -21,20 +21,28 @@
 </template>
 
 <script>
+import axios from 'axios';
 import Modal from './common/Modal'
 
 export default {
   data(){
     return{
       showModal : false,
-      user:"",
-      price:0,
+      user:"kwon",
+      price:10000,
     }
   },
-
+  created:{
+  },
   methods : {
     purchase(){
       this.showModal = !this.showModal;
+      axios.post("http://localhost:3000/auth/myinfo",{headers:{"authorization":localStorage.getItem('authorization')}})
+        .then(
+            ({ data }) => (
+                this.item.push(data)
+            )
+        );
     }
   },
 

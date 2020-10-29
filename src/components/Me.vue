@@ -28,7 +28,7 @@ export default {
             ({ data }) => (
                 this.item.push(data)
             )
-        )
+        );
   },
 }
 </script>

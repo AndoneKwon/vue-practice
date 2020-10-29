@@ -36,7 +36,8 @@ export default {
         console.log(formData);
         axios.post('http://localhost:8008/posts/create', formData, {
             headers: {
-                'Content-Type': 'multipart/form-data'
+                'Content-Type': 'multipart/form-data',
+                "authorization":localStorage.getItem('authorization')
             },
         }
         ).then(function(){
