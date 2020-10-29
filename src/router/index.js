@@ -9,6 +9,7 @@ import Chat from "../components/Chat";
 import Chat2 from "../components/Chat2";
 import Pay from "../components/Pay";
 import Create from "../components/Create";
+import ChangePath from '../components/kimyoungseo.vue';
 
 
 Vue.use(Router)
@@ -61,6 +62,11 @@ export default new Router({
             name:"chat",
             component: Create,
         },
+        {
+            path:"/changePathLater",
+            name:"night",
+            component: ChangePath
+        }
 
     ],
 })
