@@ -6,14 +6,12 @@ import Me from "../components/Me.vue"
 import Register from "../components/Register";
 import Contents from "@/components/Contents";
 import Chat from "../components/Chat";
+import Chat2 from "../components/Chat2";
+import Pay from "../components/Pay";
+import Create from "../components/Create";
+
 
 Vue.use(Router)
-
-const requireAuth = () => (from, to, next) => {
-    const isAuthenticated = false
-    if (isAuthenticated) return next()
-    next('/login?returnPath=me')
-}
 
 export default new Router({
     mode: "history",
@@ -42,12 +40,26 @@ export default new Router({
             path: "/me",
             name: "Me",
             component: Me,
-            beforeEnter: requireAuth,
+        },
+        {
+            path: "/paymodule",
+            name: "Pay",
+            component: Pay,
         },
         {
             path:"/chat",
             name:"chat",
             component: Chat,
+        },
+        {
+            path:"/chat2",
+            name:"chat2",
+            component: Chat2,
+        },
+        {
+            path:"/create",
+            name:"chat",
+            component: Create,
         },
 
     ],

@@ -1,12 +1,16 @@
 <template>
-  <div>
-    <h2>Home</h2>
-    <div>{%raw%}{{greeting}}{%endraw%}</div>
+  <div >
+    <h1>Peace Market</h1>
+    <v-img :src="`http://117.17.196.142:8008/images/peacemarket.jpg`"/>
   </div>
 </template>
 
+
+<style>
+  h1 {text-align: center;}
+  div{width:500; height: 700; text-align: center;}
+</style>
 <script>
-import axios from "axios"
 
 export default {
   data() {
@@ -15,9 +19,6 @@ export default {
     }
   },
   created() {
-    axios
-        .get("http://localhost:3000/home")
-        .then(result => (this.greeting = result.data.greeting))
-  },
+  }
 }
 </script>

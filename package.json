@@ -12,13 +12,15 @@
     "core-js": "^3.6.5",
     "express-mysql-session": "^2.1.4",
     "express-session": "^1.17.1",
+    "socket-client": "^1.0.0",
     "vee-validate": "^3.4.1",
     "vue": "^2.6.11",
     "vue-material": "^1.0.0-beta-15",
     "vue-router": "^3.4.6",
     "vue-socket.io": "^3.0.10",
     "vuetify": "^2.3.14",
-    "vuex": "^3.5.1"
+    "vuex": "^3.5.1",
+    "webstomp-client": "^1.2.6"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~4.5.0",

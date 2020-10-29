@@ -2,6 +2,8 @@
   <v-app id = "app">
     <menus></menus>
     <router-view></router-view>
+    <Information></Information>
+    <Pay></Pay>
   </v-app>
 </template>
 

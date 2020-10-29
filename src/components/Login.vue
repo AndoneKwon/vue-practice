@@ -8,13 +8,14 @@
             <v-spacer></v-spacer>
           </v-toolbar>
           <v-card-text>
-            <v-form>
-              <v-text-field  v-model="form.email" label="email" type="text"></v-text-field>
-              <v-text-field  v-model="form.pwd" label="비밀번호" type="password"></v-text-field>
+            <v-form ref = "form">
+              <v-text-field  v-model="email" id="email" label="email" type="text"></v-text-field>
+              <v-text-field  v-model="pwd" id="pwd" label="비밀번호" type="password"></v-text-field>
             </v-form>
           </v-card-text>
           <v-card-actions>
             <v-spacer></v-spacer>
+            <h4 v-show="400==status">ID 또는 비밀번호를 확인해 주세요.</h4>
             <v-btn color="primary" @click="signIn">로그인</v-btn>
           </v-card-actions>
         </v-card>
@@ -24,36 +25,39 @@
 </template>
 
 <script>
+import axios from 'axios'
 
 export default {
-  data () {
-    return {
-      form: {
-        email: '',
-        pwd: ''
-      }
+  data() {
+    return{
+      status:200
     }
   },
   methods: {
-    signIn (email, pwd) {
-      // LOGIN 액션 실행
-      this.$store
-          .dispatch("LOGIN", { email, pwd })
-          .then(() => this.redirect())
-          .catch(({ message }) => (this.msg = message))
+    signIn () {
+      axios({
+        method:'POST',
+        url : 'http://localhost:3000/auth/login',
+        data:{
+            email:this.email,
+            password:this.pwd
+        },
+      })
+      .then(res=>{
+        console.log(res.data);
+        if(res.data.code==400)
+          this.status=res.data.code
+        else{
+          localStorage.setItem("authorization",res.data.token);
+          localStorage.setItem("refreshtoken",res.data.refreshtoken);
+          window.location.href="http://localhost:8080"
+        }
+      });
     },
 
     redirect() {
-      const { search } = window.location
-      const tokens = search.replace(/^\?/, "").split("&")
-      const { returnPath } = tokens.reduce((qs, tkn) => {
-        const pair = tkn.split("=")
-        qs[pair[0]] = decodeURIComponent(pair[1])
-        return qs
-      }, {})
-
       // 리다이렉트 처리
-      this.$router.push(returnPath)
+      this.$router.push("/home")
     },
 
   }

@@ -3,13 +3,12 @@
     <h2>Me</h2>
     <div>
       <label>User Info:</label>
-      <pre>{%raw%}{{user}}{%endraw%}</pre>
-    </div>
-    <div>
-      <label>Access Log:</label>
-      <div v-for="log in accessLog" :key="log">
-        {%raw%}{{log.userId}}, {{log.createdAt}}{%endraw%}
-      </div>
+      <br>
+      email : {{item[0].email}}
+      <br>
+      nickname : {{item[0].nickname}}
+      <br>
+      amount : {{item[0].amount}}
     </div>
   </div>
 </template>
@@ -20,16 +19,14 @@ import axios from "axios"
 export default {
   data() {
     return {
-      user: null,
-      accessLog: [],
+      item:[]
     }
   },
   created() {
-    axios
-        .get("http://localhost:3000/me")
+    axios.get("http://localhost:3000/auth/myinfo",{headers:{"authorization":localStorage.getItem('authorization')}})
         .then(
             ({ data }) => (
-                (this.user = data.user), (this.accessLog = data.accessLog)
+                this.item.push(data)
             )
         )
   },

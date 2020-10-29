@@ -2,15 +2,14 @@
   <v-card
       flat
       tile
+      align-content-center
   >
     <v-toolbar
         color="cyan"
         dark
     >
-      <v-app-bar-nav-icon></v-app-bar-nav-icon>
-
-      <v-toolbar-title>Application</v-toolbar-title>
-
+      <v-app-bar-nav-icon class="justify-center"></v-app-bar-nav-icon>
+        <H1>검색</H1>
       <v-spacer></v-spacer>
 
       <v-btn icon>
@@ -18,83 +17,85 @@
       </v-btn>
     </v-toolbar>
 
-    <v-container
-        v-for="type in types"
-        :key="type"
-        class="grey lighten-4"
-        fluid
-    >
-      <v-subheader>{{ type }}</v-subheader>
-
-      <v-row>
-        <v-spacer></v-spacer>
-        <v-col
-            v-for="card in cards"
-            :key="card"
-            cols="12"
-            sm="6"
-            md="4"
+    <v-form ref = "form" @submit.prevent="submit">
+      <v-row md="2" >
+        <v-text-field
+          v-model="search"
+          label="search"
+          id="search"
+          outlined
+        ></v-text-field>
+        <v-btn
+          @click="submit"
+          color="success"
         >
-          <v-card>
-            <v-img
-                :src="`https://picsum.photos/200/300?image=${getImage()}`"
-                height="300px"
-            >
-              <span
-                  class="headline white--text pl-4 pt-4 d-inline-block"
-                  v-text="card"
-              ></span>
-            </v-img>
-
-            <v-card-actions class="white justify-center">
-              <v-btn
-                  v-for="(social, i) in socials"
-                  :key="i"
-                  :color="social.color"
-                  class="white--text"
-                  fab
-                  icon
-                  small
-              >
-                <v-icon>{{ social.icon }}</v-icon>
-              </v-btn>
-            </v-card-actions>
-          </v-card>
-        </v-col>
+        submit
+        </v-btn>
       </v-row>
+    </v-form>
+    <v-container>
+      <v-row no-gutters>
+      <v-col
+        v-for="item in items[0]"
+        :key="item"
+        cols="12"
+        sm="4"
+      >
+        <v-card
+          class="pa-2"
+          outlined
+          tile
+        >
+          {{item._source.title}}
+        </v-card>
+
+        <v-card
+          class="pa-2"
+          outlined
+          tile
+        >
+          <v-img :src="`http://117.17.196.142:8008/images/${item._source.photo}`"/>
+        </v-card>
+      </v-col>
+    </v-row>
     </v-container>
+   
   </v-card>
 </template>
 
 
-
+<style scoped>
+    .centered-input input {
+  text-align: center
+}
+</style>
 <script>
+import axios from "axios"
+
 export default {
   data: () => ({
-    types: ['Places to Be', 'Places to See'],
-    cards: ['Good', 'Best', 'Finest'],
-    socials: [
-      {
-        icon: 'mdi-facebook',
-        color: 'indigo',
-      },
-      {
-        icon: 'mdi-linkedin',
-        color: 'cyan darken-1',
-      },
-      {
-        icon: 'mdi-instagram',
-        color: 'red lighten-3',
-      },
-    ],
+    items:[],
+    from:0,
   }),
 
   methods: {
-    getImage () {
-      const min = 550
-      const max = 560
-
-      return Math.floor(Math.random() * (max - min + 1)) + min
+    submit(){
+      console.log(this.search);
+      axios({
+          method:'POST',
+          url : 'http://localhost:3003/search',
+          data:{
+              query:this.search,
+          },
+      })
+      .then(res=>{
+        console.log(res.data[0]);
+        this.items.push(res.data);
+      });
+      this.reset();          
+    },
+    reset(){
+      this.$refs.form.reset()  
     },
   },
 }

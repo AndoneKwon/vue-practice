@@ -6,14 +6,15 @@
     <form>
       <validation-provider
           v-slot="{ errors }"
-          name="Name"
+          name="nickname"
           rules="required|max:10"
       >
         <v-text-field
-            v-model="name"
+            v-model="nickname"
             :counter="10"
             :error-messages="errors"
-            label="Name"
+            label="nickname"
+            id="nickname"
             required
         ></v-text-field>
       </validation-provider>
@@ -27,37 +28,36 @@
             :error-messages="errors"
             label="E-mail"
             required
+            id="email"
         ></v-text-field>
       </validation-provider>
       <validation-provider
           v-slot="{ errors }"
-          name="select"
+          name="password"
           rules="required"
       >
-        <v-select
-            v-model="select"
-            :items="items"
+        <v-text-field
+            v-model="pwd"
             :error-messages="errors"
-            label="Select"
-            data-vv-name="select"
+            label="password"
+            type="password"
+            id="pwd"
             required
-        ></v-select>
+        ></v-text-field>
       </validation-provider>
       <validation-provider
-          v-slot=""
+          v-slot="{ errors }"
+          name="password"
           rules="required"
-          name="checkbox"
       >
-        <v-checkbox
-            v-model="checkbox"
+        <v-text-field
+            v-model="phoneNum"
             :error-messages="errors"
-            value="1"
-            label="Option"
-            type="checkbox"
+            label="phoneNum"
+            id="phoneNum"
             required
-        ></v-checkbox>
+        ></v-text-field>
       </validation-provider>
-
       <v-btn
           class="mr-4"
           @click="submit"
@@ -74,6 +74,7 @@
 <script>
 import { required, email, max } from 'vee-validate/dist/rules'
 import { extend, ValidationObserver, ValidationProvider, setInteractionMode } from 'vee-validate'
+import axios from 'axios'
 
 setInteractionMode('eager')
 
@@ -102,26 +103,31 @@ export default {
     email: '',
     select: null,
     errors: null,
-    items: [
-      'Item 1',
-      'Item 2',
-      'Item 3',
-      'Item 4',
-    ],
     checkbox: null,
   }),
 
   methods: {
     submit () {
       this.$refs.observer.validate()
-      this.$store
-          .then(() => this.redirect())
+      axios({
+        method:'POST',
+        url : 'http://localhost:3000/auth/join',
+        data:{
+            email:this.email,
+            password:this.pwd,
+            phone_num:this.phoneNum,
+            nickname:this.nickname
+        },
+      })
+      .then(res=>{
+        if(res.data.code==200)
+        window.location.href="http://localhost:8080"
+      })
     },
     clear () {
       this.name = ''
       this.email = ''
-      this.select = null
-      this.checkbox = null
+      this.password = null
       this.$refs.observer.reset()
     },
 

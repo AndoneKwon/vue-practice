@@ -70,7 +70,7 @@ import SockJS from 'sockjs-client'
                 data:{
                     message:this.chat,
                     user:"1",
-                    nickname:"myname",
+                    nickname:"kwon",
                     roomNum:"1"
                 },
             });
