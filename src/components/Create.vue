@@ -25,7 +25,9 @@ export default {
     async upload() {
       let formData = new FormData();
         var photofile = document.getElementById("photo");
-        formData.append("photo",photofile.files[0]);
+        for(var i=0;i<photofile.files.length;i++){
+          formData.append("photo",photofile.files[i]);
+        }
         var title = document.getElementById("title").value;
         var content = document.getElementById("content").value;
         var price = document.getElementById("price").value;

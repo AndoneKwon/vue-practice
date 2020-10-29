@@ -52,7 +52,7 @@ import SockJS from 'sockjs-client'
     data(){
       return{
         items: [],
-        nickname:["myname","kwon"]
+        nickname:["ro","seoutech"]
       }
     },
     created(){
@@ -70,7 +70,7 @@ import SockJS from 'sockjs-client'
                 data:{
                     message:this.chat,
                     user:"1",
-                    nickname:"kwon",
+                    nickname:"ro",
                     roomNum:"1"
                 },
             });

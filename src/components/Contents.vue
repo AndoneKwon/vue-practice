@@ -45,10 +45,17 @@
           class="pa-2"
           outlined
           tile
+          @click="gotodetail(item._source.id)"
         >
           {{item._source.title}}
         </v-card>
-
+        <v-card
+          class="pa-2"
+          outlined
+          tile
+        >
+          {{item._source.author}}
+        </v-card>
         <v-card
           class="pa-2"
           outlined
@@ -93,6 +100,10 @@ export default {
         this.items.push(res.data);
       });
       this.reset();          
+    },
+    gotodetail(id){
+      var link= '/detail?id=' + id;
+      window.location.href="http://localhost:8080"+link;
     },
     reset(){
       this.$refs.form.reset()  

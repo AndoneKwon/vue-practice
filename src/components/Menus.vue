@@ -11,7 +11,7 @@
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
     <router-link to="/contents">Contents</router-link>
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-    <router-link to="/create">Create</router-link>
+    <router-link v-if="isAuthenticated()" to="/create">Create</router-link>
 
   </div>
 </template>
